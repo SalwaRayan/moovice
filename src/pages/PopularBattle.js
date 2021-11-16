@@ -61,11 +61,6 @@ class PopularBattle extends Component {
             }
           })}
         </div>
-          {currentBattle === 20 &&
-            <div className="my-5 text-center">
-              <h2>You have seen all the films!</h2>
-            </div>
-          }
 
       </div>
     );
