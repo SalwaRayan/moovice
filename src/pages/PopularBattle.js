@@ -8,6 +8,23 @@ class PopularBattle extends Component {
 
     this.state = {
       movies: [],
+      currentBattle: 0,
+    }
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(id) {
+    this.setState({ currentBattle: this.state.currentBattle + 2})
+    
+    let favoriteArray = localStorage.getItem("favorite")
+
+    if(!favoriteArray) {
+      favoriteArray = localStorage.setItem("favorite", JSON.stringify([id]))
+    } else {
+      favoriteArray = JSON.parse(favoriteArray)
+      favoriteArray = [...favoriteArray, id]
+      favoriteArray = localStorage.setItem("favorite", JSON.stringify(favoriteArray))
     }
   }
 
@@ -17,31 +34,38 @@ class PopularBattle extends Component {
       .then(data => {
         this.setState({ 
           movies: data.results,
-          currentBattle: 0,
         })
       })
   }
   
   render() {
-    const { movies } = this.state
+    const { movies, currentBattle } = this.state
 
-    // console.log(movies)
-
-    return (
+    console.log(currentBattle)
+    return ( 
       <div className="container">
-        <h1 className="my-5 text-center">Popular</h1>
+        <h1 className="my-5 text-center">Popular Battle</h1>
+        <h2 className="my-5 text-center">Select a card to battle it with its neighbour</h2>
 
         <div className="d-flex flex-wrap justify-content-center">
-        <h2>Select a card to battle it with his neighbour</h2>
-        {/* {movies.map((movie) => (
-          <Card 
-              title={movie.title}
-              release={movie.release_date}
-              description={movie.overview}
-              image={movie.poster_path}
-            />
-        ))} */}
+          {movies.map((movie, index) => {
+            if(index === currentBattle || index === currentBattle + 1) {
+              return <div onClick={() => this.handleClick(movie.id)}>
+                <Card
+                  title={movie.title}
+                  release={movie.release_date}
+                  description={movie.overview}
+                  image={movie.poster_path}
+                />
+              </div>
+            }
+          })}
         </div>
+          {currentBattle === 20 &&
+            <div className="my-5 text-center">
+              <h2>You have seen all the films!</h2>
+            </div>
+          }
 
       </div>
     );

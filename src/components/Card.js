@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Card extends Component {
   render() {
-    const { title, release, description, image } = this.props
+    const { title, release, description, image, } = this.props
 
     return (
       <div className="m-5">

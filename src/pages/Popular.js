@@ -24,8 +24,6 @@ class Popular extends Component {
   render() {
     const { movies } = this.state
 
-    // console.log(movies)
-
     return (
       <div className="container">
         <h1 className="my-5 text-center">Popular</h1>
