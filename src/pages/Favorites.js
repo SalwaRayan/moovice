@@ -20,8 +20,8 @@ class Favorites extends Component {
   getMovie(id) {
     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=9958597c07ec90e02675c97691bf4506`)
       .then(res => res.json())
-      .then(res =>
-        this.setState({ movies: [res, ...this.state.movies] })
+      .then(data =>
+        this.setState({ movies: [data, ...this.state.movies] })
       )
   }
 
